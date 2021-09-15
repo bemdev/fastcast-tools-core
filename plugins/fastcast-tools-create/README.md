@@ -1,6 +1,6 @@
-# bem-tools-create
+# fastcast-tools-create
 
-`bem-tools-create` could be used to create BEM-instances on the file system:
+`fastcast-tools-create` could be used to create BEM-instances on the file system:
 
  * blocks
  * elements
@@ -17,12 +17,12 @@ You can use templates for creating tech. Custom templates could be configured in
 ### CLI
 
 
-Install [bem-tools-core](https://github.com/bem-tools/bem-tools-core/) to use `bem-tools-create` via CLI.
+Install [fastcast-tools-core](https://github.com/bem-tools/bem-tools-core/) to use `fastcast-tools-create` via CLI.
 
 **SYNOPSIS**
 
 ```sh
-bem create [-t includeTech] [-n excludeTech] [-T onlyTech] [-l level] [-f] [-c fileContent] ( -b blockName [-e elemName] [-m modName] [-v modVal] | bem__instance_description )
+fastcast create [-t includeTech] [-n excludeTech] [-T onlyTech] [-l level] [-f] [-c fileContent] ( -b blockName [-e elemName] [-m modName] [-v modVal] | bem__instance_description )
 ```
 
 The command line options are as follows:
@@ -43,7 +43,7 @@ The command line options are as follows:
 ##### Creation of block with the default techs
 
 ```sh
-bem create my-block
+fastcast create my-block
 ```
 
 Creates block `my-block`. If default tech was not configured --- creates nothing.
@@ -51,13 +51,13 @@ Creates block `my-block`. If default tech was not configured --- creates nothing
 ##### Creation of block with one explicit tech
 
 ```sh
-bem create my-block.css
+fastcast create my-block.css
 ```
 
 or the same
 
 ```sh
-bem create my-block -t css
+fastcast create my-block -t css
 ```
 
 Creates block `my-block` with technology `css` **in addition to default techs**.
@@ -65,13 +65,13 @@ Creates block `my-block` with technology `css` **in addition to default techs**.
 ##### Creation of block with several defined techs
 
 ```sh
-bem create my-block.{css,js}
+fastcast create my-block.{css,js}
 ```
 
 or the same
 
 ```sh
-bem create my-block -t css -t js
+fastcast create my-block -t css -t js
 ```
 
 Creates block `my-block` with techs `css` and `js` in addition to default techs.
@@ -79,7 +79,7 @@ Creates block `my-block` with techs `css` and `js` in addition to default techs.
 ##### Creation of block with defined techs only
 
 ```sh
-bem create my-block -T css -T js
+fastcast create my-block -T css -T js
 ```
 
 Creates block `my-block` **only** with techs `css` and `js` ignoring default techs.
@@ -87,7 +87,7 @@ Creates block `my-block` **only** with techs `css` and `js` ignoring default tec
 ##### Creation of block excluding some techs
 
 ```sh
-bem create my-block.js -n css
+fastcast create my-block.js -n css
 ```
 
 Creates block `my-block` with techs `js` and default tech list excluding **css**.
@@ -95,8 +95,8 @@ Creates block `my-block` with techs `js` and default tech list excluding **css**
 ##### Level for block creation
 
 ```sh
-bem create level/my-block
-bem create my-block -l level
+fastcast create level/my-block
+fastcast create my-block -l level
 ```
 
 Creates block `my-block` with the default techs on level `level`.
@@ -109,7 +109,7 @@ By default existing files will not be overwrited and the list of conflicting fil
 To force existing files overwriting option `-f` could be used
 
 ```sh
-bem create -f -b bl1
+fastcast create -f -b bl1
 ```
 
 In result all existing files will be overwrited without any warnings.
@@ -119,7 +119,7 @@ In result all existing files will be overwrited without any warnings.
 To support file creation with custom content (not from configured tempalte) option `-c` could be used. Content should be defined as command line argument
 
 ```sh
-bem create -b bl1 -T css -c '.bl1
+fastcast create -b bl1 -T css -c '.bl1
 {
     display: none;
 }'
@@ -128,7 +128,7 @@ bem create -b bl1 -T css -c '.bl1
 If `-c` option used with empty value, then content of file will be piped from **STDIN**.
 
 ```sh
-cat source_file.css | bem create -b bl1 -T css -c
+cat source_file.css | fastcast create -b bl1 -T css -c
 ```
 
 This piped content will be writed in all created files, for example for several default techs or default levels. So `-T` option and explicit level definition usefull in conjunction with content piping.
@@ -136,13 +136,13 @@ This piped content will be writed in all created files, for example for several 
 #### Element creation
 
 ```sh
-bem create my-block__elem
+fastcast create my-block__elem
 ```
 
 or
 
 ```sh
-bem create -b my-block -e elem
+fastcast create -b my-block -e elem
 ```
 
 Creates element `elem` of block `my-block` with the default techs.
@@ -150,15 +150,15 @@ Creates element `elem` of block `my-block` with the default techs.
 ##### Block modifier creation
 
 ```sh
-bem create my-block_mod
-bem create my-block_mod_val
+fastcast create my-block_mod
+fastcast create my-block_mod_val
 ```
 
 or
 
 ```sh
-bem create -b my-block -m mod
-bem create -b my-block -m mod -v val
+fastcast create -b my-block -m mod
+fastcast create -b my-block -m mod -v val
 ```
 
 Creates modifier `mod` (with `val` value if defined) of block `my-block` with the default techs.
@@ -166,15 +166,15 @@ Creates modifier `mod` (with `val` value if defined) of block `my-block` with th
 ##### Element modifier creation
 
 ```sh
-bem create my-block__elem_mod
-bem create my-block__elem_mod_val
+fastcast create my-block__elem_mod
+fastcast create my-block__elem_mod_val
 ```
 
 or
 
 ```sh
-bem create -b my-block -e elem -m mod
-bem create -b my-block -e elem -m mod -v val
+fastcast create -b my-block -e elem -m mod
+fastcast create -b my-block -e elem -m mod -v val
 ```
 
 Creates modifier `mod` (with `val` value if defined) of element `elem` of block
@@ -185,7 +185,7 @@ Creates modifier `mod` (with `val` value if defined) of element `elem` of block
 ### JS API
 
 ```js
-const create = require('bem-tools-create');
+const create = require('fastcast-tools-create');
 
 create('level1/b1.{css,js}'); // will create b1.css and b1.js in level1/b1 folder
 create('b1__e1.{css,js}'); // will create b1/__e1/b1__e1.css and b1/__e1/b1__d1.js on default levels or cwd
@@ -201,7 +201,7 @@ create([
 ```
 
 ### Configuration
-Use [bem-config](https://github.com/bem/bem-sdk/tree/master/packages/config#config) to set up `bem-tools-create` behaviour.
+Use [bem-config](https://github.com/bem/bem-sdk/tree/master/packages/config#config) to set up `fastcast-tools-create` behaviour.
 
 ```js
 {
@@ -221,28 +221,12 @@ Use [bem-config](https://github.com/bem/bem-sdk/tree/master/packages/config#conf
         }
     ],
     "modules": {
-        "bem-tools": {
+        "fastcast-tools": {
             "plugins": {
                 "create": {
                     "techs": [
                         "css", "js"
-                    ],
-                    "templateFolder": ".bem/bem-tools-create/lib/templates",
-                    "templates": {
-                        "js-ymodules": ".bem/bem-tools-create/lib/templates/js"
-                    },
-                    "techsTemplates": {
-                        "js": "js-ymodules",
-                        "bemtree.js": "bemhtml.js"
-                    },
-                    "levels": {
-                        "path/to/level1": {
-                            "default": true
-                        },
-                        "path/to/level3": {
-                            "techs": ["bemhtml.js"]
-                        }
-                    }
+                    ]
                 }
             }
         }
