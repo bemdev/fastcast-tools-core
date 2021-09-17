@@ -30,6 +30,7 @@ module.exports = function create(entities, levels, techs, options) {
 					{
 						defaults: {
 							levels: { 'src/components': { default: true } },
+              techs: ['jsx', 'css']
 						},
 						...options,
 					},
