@@ -26,23 +26,21 @@ module.exports = function(entity, naming) {
             `import './${entity.block}_${entity.mod.name}${
                 !valBoolean ? '_' + entity.mod.val : ''
             }.css'`,
-            `import { blockName } from '../${entity.block}/${entity.block}'`,
+            `import { blockName } from '${entity.block}/${entity.block}'`,
             !valBoolean ? '' : null,
             !valBoolean
                 ? `const ${capitalizeBlock}${toCamelCase(
                       entity.mod.name,
-                  )} = ({children}) => <div className={blockName({ ${
-                      entity.mod.name
-                  }: ${modVal} })}>{children}</div>`
+                  )} = () => ({className}) => <div className={blockName() + ' ' + className}></div>`
                 : '//primitive application with mods and css',
             entity.mod.name
                 ? `export const ${capitalizeBlock}${toCamelCase(
                       entity.mod.name,
                   )}${
                       !valBoolean ? toCamelCase(entity.mod.val) : ''
-                  } = withBemMod(blockName(), { ${
+                  } = withBemMod('${entity.block}', { ${
                       entity.mod.name
-                  }: ${modVal} }${!valBoolean ? ',' + capitalizeBlock : ''}${
+                  } : ${modVal} }${!valBoolean ? ', ' + capitalizeBlock : ''}${
                       !valBoolean ? toCamelCase(entity.mod.name) : ''
                   })`
                 : `export default ${entity.block}`,
