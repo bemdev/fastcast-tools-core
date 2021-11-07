@@ -51,10 +51,9 @@ module.exports = function(entity, naming) {
 
         first = [
             "import React from 'reactify'",
-            '',
-            `import { blockName } from '../${entity.block}/${entity.block}'`,
             `import './${entity.block}__${entity.elem}.css'`,
-            `const elemName = React.cn(blockName(), '${entity.elem}')()`,
+            '',
+            `const elemName = React.cn('${entity.block}'), '${entity.elem}')()`,
             '',
             `const ${capitalizeElem} = ({children}) => <div className={elemName}>{children}</div>`,
             '',
